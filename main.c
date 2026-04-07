@@ -1,7 +1,7 @@
 /** main.c
  * ===========================================================
- * Name: _______________________, __ ___ 2026
- * Section: CS483 / ____
+ * Name: Caitlyn Budd, 23 April 2026
+ * Section: CS483 / M3
  * Project: PEX3 - Page Replacement Simulator
  * Purpose: Reads a BYU binary memory trace file and simulates
  *          LRU page replacement to measure fault rates across
