@@ -36,7 +36,9 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
         return -1;
     }
     
-    PqNode* currentnode = pq->tail;
+    
+    PqNode* currentnode = malloc(sizeof(PqNode));
+    currentnode = pq->tail;
     for(int depth = 0; depth <= pq->size; depth ++){
         if(currentnode->pageNum != pageNum){
             currentnode = currentnode->prev;
@@ -71,6 +73,7 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
             
         }
     }
+    free(currentnode);
 
 
     //
