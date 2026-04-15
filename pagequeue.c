@@ -76,7 +76,7 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
     //
     // MISS path (page not found):
     //   - Allocate a new node for pageNum and insert it at the tail.
-    PqNode* newNode = malloc(sizeof(Node));
+    PqNode* newNode = malloc(sizeof(PqNode));
     newNode->pageNum = pageNum;
 
     if (pq->tail) {              
