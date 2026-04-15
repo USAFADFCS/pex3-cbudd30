@@ -32,11 +32,11 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
     //   - Remove the node from its current position and re-insert
     //     it at the tail (most recently used).
     //   - Return d.
+    if(pq->tail == NULL){
+        return -1;
+    }
     
-
     PqNode* currentnode = pq->tail;
-    
-    
     for(int depth = 0; depth <= pq->size; depth ++){
         if(currentnode->pageNum != pageNum){
             currentnode = currentnode->prev;
@@ -136,7 +136,7 @@ void pqPrint(PageQueue *pq) {
     //                  Useful for desk-checking small traces.
     PqNode* current = pq->head;   
     while (current != NULL) {        
-    printf("%s\n", current->pageNum);        
+    printf("%lu\n", current->pageNum);        
     current = current->next;
     }
 }
