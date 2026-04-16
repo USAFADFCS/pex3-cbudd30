@@ -18,7 +18,7 @@
 PageQueue *pqInit(unsigned int maxSize) {
     // TODO: malloc a PageQueue, set head and tail to NULL,
     //       size to 0, maxSize to maxSize, and return the pointer
-    PageQueue* newpq = malloc(sizeof(PageQueue));
+    PageQueue* newpq = malloc(sizeof(PageQueue*));
     newpq->head = NULL;
     newpq->tail = NULL;
     newpq->size = 0;
