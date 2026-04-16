@@ -18,7 +18,7 @@
 PageQueue *pqInit(unsigned int maxSize) {
     // TODO: malloc a PageQueue, set head and tail to NULL,
     //       size to 0, maxSize to maxSize, and return the pointer
-    PageQueue* newpq = malloc(sizeof(PageQueue*));
+    PageQueue* newpq = malloc(sizeof(PageQueue));
     newpq->head = NULL;
     newpq->tail = NULL;
     newpq->size = 0;
@@ -72,6 +72,9 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
             else{
             currentnode->next->prev = currentnode->prev;
             }
+            //updates currentnode
+            currentnode->next = NULL;
+            currentnode->prev = pq->tail;
 
             //append to end
             if (pq->tail) {              
@@ -99,10 +102,15 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
 
     //   - If size now exceeds maxSize, evict the head node (free it).
     if(pq->size > pq->maxSize){
+        PqNode* nodeToDelete = pq->head;
         pq->head = pq->head->next;
         if(pq->head != NULL){
             pq->head->prev = NULL;
-        } 
+        }
+        else{
+            pq->tail = NULL;
+        }
+        free(nodeToDelete);
         pq->size --;
     }
     return -1;

@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
         
         printf("%d,%d,%f\n", frameCount, faults[frameCount],
                   (double)faults[frameCount] / (double)numAccesses);
-        pqPrint(pq);
+        //pqPrint(pq);
     }
 
 
