@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
     //       and allocate the faults[] array.  faults[f] will hold the
     //       total number of page faults that occur when f frames are
     //       available.  Use calloc so all entries start at zero.
-    PageQueue* pq = pqInit(maxFrames);
+    PageQueue* pq = pqInit(maxFrames); //is maxFrames same as maxSize
     int *faults = (int*)calloc(maxFrames, sizeof(int));
 
 
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
         //       It returns:
         //         -1      -> page was NOT in the queue (fault for ALL frame counts)
         if(ans == -1){
-            for(int i =1; i <maxFrames; i++){
+            for(int i =1; i <=maxFrames; i++){
                 faults[i]++;
             }
             
@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
         //         d >= 0  -> page was at depth d from the MRU end
         //                    (fault for any allocation with fewer than d+1 frames)
         else{
-            for(int j =1; j < ans; j++){
+            for(int j =1; j <=ans; j++){
                 faults[j]++;
 
             }
@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
         
         printf("%d,%d,%f\n", frameCount, faults[frameCount],
                   (double)faults[frameCount] / (double)numAccesses);
-        //pqPrint(pq);
+        pqPrint(pq);
     }
 
 
