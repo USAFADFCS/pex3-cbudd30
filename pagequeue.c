@@ -37,18 +37,27 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
     //   - Remove the node from its current position and re-insert
     //     it at the tail (most recently used).
     //   - Return d.
+    
     if(pq->tail == NULL){
+        PqNode* newNode = malloc(sizeof(PqNode));
+        newNode->pageNum = pageNum;
+        newNode->next = NULL;
+        newNode->prev = pq->tail;       
+        pq->tail = newNode;
+        pq->head = newNode;
+        pq->size++;
+
         return -1;
     }
     
-    
-    PqNode* currentnode = malloc(sizeof(PqNode));
-    currentnode = pq->tail;
-    for(int depth = 0; depth <= pq->size; depth ++){
-        if(currentnode->pageNum != pageNum){
-            currentnode = currentnode->prev;
-        }
-        else{
+    PqNode* currentnode = pq->tail;
+    int depth = 0;
+  
+    while((currentnode != NULL) && (currentnode->pageNum != pageNum) && (depth <= pq->size)){
+      currentnode = currentnode->prev;
+      depth ++;
+     }
+     if((currentnode != NULL) && currentnode->pageNum == pageNum){
             //remove from queue, relinked prev/next nodes
             if(currentnode->prev == NULL){
                 pq->head = currentnode->next;
@@ -76,37 +85,31 @@ long pqAccess(PageQueue *pq, unsigned long pageNum) {
             //return depth of node
             return depth;
             
-        }
     }
-    free(currentnode);
-
-
-    //
+    else{
     // MISS path (page not found):
     //   - Allocate a new node for pageNum and insert it at the tail.
     PqNode* newNode = malloc(sizeof(PqNode));
     newNode->pageNum = pageNum;
-
-    if (pq->tail) {              
-    pq->tail->next = newNode;    
-    } 
-    else {        
-        pq->head = newNode;    
-    }
-    pq->tail = newNode;    
+    newNode->prev = pq->tail;
+    newNode->next = NULL;
+    pq->tail->next = newNode;  
+    pq->tail = newNode;  
     pq->size++;
 
     //   - If size now exceeds maxSize, evict the head node (free it).
     if(pq->size > pq->maxSize){
-        PqNode* temp = pq->head;
         pq->head = pq->head->next;
-        free(temp);
+        if(pq->head != NULL){
+            pq->head->prev = NULL;
+        } 
         pq->size --;
     }
-    
-
-    //   - Return -1.
     return -1;
+    
+    }
+    
+    
 }
 
 /**

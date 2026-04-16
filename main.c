@@ -93,17 +93,17 @@ int main(int argc, char **argv) {
         long ans = pqAccess(pq, pageNum);
         //       It returns:
         //         -1      -> page was NOT in the queue (fault for ALL frame counts)
-         if(ans == -1){
-            for(int i =0; i <=maxFrames; i++){
-                faults[i] = faults[i] + 1;
+        if(ans == -1){
+            for(int i =1; i <maxFrames; i++){
+                faults[i]++;
             }
             
         }
         //         d >= 0  -> page was at depth d from the MRU end
         //                    (fault for any allocation with fewer than d+1 frames)
         else{
-            for(int j =0; j <= ans; j++){
-                faults[j] = faults[j] +1;
+            for(int j =1; j < ans; j++){
+                faults[j]++;
 
             }
         }
@@ -123,6 +123,7 @@ int main(int argc, char **argv) {
         
         printf("%d,%d,%f\n", frameCount, faults[frameCount],
                   (double)faults[frameCount] / (double)numAccesses);
+        //pqPrint(pq);
     }
 
 
