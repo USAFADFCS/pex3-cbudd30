@@ -6,7 +6,8 @@
  * Purpose: Reads a BYU binary memory trace file and simulates
  *          LRU page replacement to measure fault rates across
  *          varying frame allocations.
- * Documentation: TBD
+ * Documentation: how calloc works -> https://www.tutorialspoint.com/c_standard_library/c_function_calloc.htm
+ * used linkedlist code from CS220
  * =========================================================== */
 #include <stdio.h>
 #include <stdlib.h>
